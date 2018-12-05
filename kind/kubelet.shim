@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -x
+
+sleep 2
+
+# https://raw.githubusercontent.com/kubernetes/kubernetes/v1.12.3/build/debs/10-kubeadm.conf
+
+KUBELET_KUBECONFIG_ARGS='--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf'
+KUBELET_CONFIG_ARGS='--config=/var/lib/kubelet/config.yaml'
+
+test -f /var/lib/kubelet/kubeadm-flags.env && \
+    export $(cut -d= -f1 < /var/lib/kubelet/kubeadm-flags.env)
+
+KUBELET_EXTRA_ARGS='--fail-swap-on=false'
+
+exec /usr/local/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_KUBEADM_ARGS $KUBELET_EXTRA_ARGS

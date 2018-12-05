@@ -1,0 +1,7 @@
+#!/bin/sh
+
+set -x
+
+(mkdir -p /var/lib/docker; cd /var/lib/docker; tar -xf /docker-cache.tar)
+
+exec /usr/local/bin/dockerd-entrypoint.sh
