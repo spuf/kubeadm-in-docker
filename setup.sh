@@ -25,7 +25,8 @@ kubectl -n kube-system create -f kube-proxy-cm.yaml
 rm -f kube-proxy-cm.yaml
 kubectl delete pod -l k8s-app=kube-proxy -n kube-system
 
-kubectl wait # wait all nodes running
+# @todo: wait all nodes running
+# kubectl wait ...
 
 kubectl cluster-info
 kubectl describe nodes
